@@ -9,9 +9,10 @@ Target SDK: 28
 min SDK: 23
 
 ## Setting up
-1. There are currently know required actions besides cloning the repo – clone and begin coding!
-2. ???
-3. Profit.
+1. Clone the repo
+2. Obtain the firebase key from current developers
+3. yeet
+
 
 # Work flow
 1. Create your own development branch
@@ -32,24 +33,4 @@ min SDK: 23
 	* Menu
 		+ has buttons that points to activities (has info category search for now)
 
-# Webapp
-Tutorial followed for setup: 
-`https://codelabs.developers.google.com/codelabs/firebase-web/#0`
-
-To run the webapp locally:
-
-Setup:
-`npm -g install firebase-tools`
-
-`firebase login`
-
-`firebase use --add`
-
-From web directory: 
-`firebase serve --only hosting`
-
-`✔  hosting: Local server: http://localhost:5000`
-
-To deploy:
-`firebase deploy --except functions`
 
