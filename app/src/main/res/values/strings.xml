@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CalNourish</string>
+    <string name="location">Pick up location</string>
+    <string name="yourName">Name</string>
+    <string name="phone">Phone number</string>
+    <string name="pickUpDate">Pick up date</string>
+    <string name="pickUpBetween">Please indicate between what times the UC Berkeley Food Pantry can pick up the donation</string>
+    <string name="calendarButton">calendar</string>
+    <string name="From">From</string>
+    <string name="To">To</string>
+    <string name="Donation">Please describe the donation</string>
+    <string name="Submit">Submit</string>
+    <string name="Cancel">Cancel</string>
+    <string name="foodRecovery">Food Recovery</string>
+</resources>

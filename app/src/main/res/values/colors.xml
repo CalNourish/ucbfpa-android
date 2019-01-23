@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#febd40</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#ff4081</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrey">#c3c3c3</color>
+    <color name="whiteish">#f4f8f9</color>
+    <color name="textColor">#47575c</color>
+    <color name="textColorLight">#6a7f86</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+<!-- Cal Nourish Colors-->
+    <color name="calNourishAccent">#febd40</color>
+    <color name="calNourishRed">#DB2B39</color>
+    <color name="calNourishText">#5e5e5e</color>
+    <color name="calNourishGray">#b4b4b4</color>
+    <color name="calNourishLightGray">#e0e0e0</color>
+    <color name="calNourishGreen">#6eb257</color>
+</resources>

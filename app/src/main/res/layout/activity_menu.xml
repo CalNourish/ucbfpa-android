@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/menu0"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#FFFFFF"
+                android:backgroundTintMode="add"
+                android:elevation="0dp"
+                android:fontFamily="@font/rubikmedium"
+                android:text="Info"
+                android:textColor="@color/calNourishAccent"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu1"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#FFFFFF"
+                android:backgroundTintMode="add"
+                android:fontFamily="@font/rubikmedium"
+                android:text="Category"
+                android:textColor="@color/calNourishAccent"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu2"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#FFFFFF"
+                android:backgroundTintMode="add"
+                android:fontFamily="@font/rubikmedium"
+                android:text="Search"
+                android:textColor="@color/calNourishAccent"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu3"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#FFFFFF"
+                android:backgroundTintMode="add"
+                android:fontFamily="@font/rubikmedium"
+                android:text="Feedback"
+                android:textColor="@color/calNourishAccent"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu4"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#FFFFFF"
+                android:backgroundTintMode="add"
+                android:fontFamily="@font/rubikmedium"
+                android:text="Food Recovery"
+                android:textColor="@color/calNourishAccent"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/menu5"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="#FFFFFF"
+                android:backgroundTintMode="add"
+                android:fontFamily="@font/rubikmedium"
+                android:text="Community Agreement"
+                android:textColor="@color/calNourishAccent"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true">
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottomNavView_Bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/white_grey_border_top"
+                app:menu="@menu/bottom_navigation_menu">
+
+
+            </android.support.design.widget.BottomNavigationView>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
