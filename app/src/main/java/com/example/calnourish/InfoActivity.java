@@ -66,6 +66,8 @@ public class InfoActivity extends AppCompatActivity {
         textViews.put("email", (TextView) findViewById(R.id.emailText));
         textViews.put("url", (TextView) findViewById(R.id.urlText));
         textViews.put("location", (TextView) findViewById(R.id.locationText));
+        textViews.put("calnourishemail", (TextView) findViewById(R.id.calnourishEmail));
+
 
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +92,7 @@ public class InfoActivity extends AppCompatActivity {
                         textViews.get("url").setMovementMethod(LinkMovementMethod.getInstance());
                         textViews.get("url").setText(Html.fromHtml(text));
                         textViews.get("location").setText((String) ((Map) infoMap.get("-location")).get("location"));
+                        //after putting C N email in database, need to get the field "-calnourishemail" from database to set text
 
                         // TODO: should refactor the switch
                         Calendar calendar = Calendar.getInstance();
