@@ -353,13 +353,13 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/reportBug"
+                    android:id="@+id/appSupport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/rubikmedium"
-                    android:text="Report a Bug"
+                    android:text="App Support"
                     android:textColor="@color/calNourishText"
                     android:textSize="24sp" />
 
@@ -376,19 +376,35 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/rubikregular"
-                        android:text="CalNourish Email"
+                        android:text="Email"
                         android:textAlignment="viewStart"
                         android:textColor="@color/calNourishText"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/locationText2"
+                        android:id="@+id/calnourishEmailText"
                         android:layout_width="140dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/rubikregular"
                         android:textAlignment="viewStart"
                         android:textColor="@color/calNourishText"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/bugReport"
+                        style="@style/Widget.MaterialComponents.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubikmedium"
+                        android:text="Submit a Bug Report"
                         android:textSize="18sp" />
                 </LinearLayout>
 

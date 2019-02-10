@@ -2,6 +2,7 @@ package com.example.calnourish;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -38,6 +39,7 @@ public class InfoActivity extends AppCompatActivity {
     private DatabaseReference DBRef;
     private HashMap<String, Object> infoMap = new HashMap<>();
     private HashMap<String, TextView> textViews = new HashMap<>();
+    private Button bugReport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class InfoActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
         final Button updateButton = (Button) findViewById(R.id.updateButton);
+        bugReport = (Button) findViewById(R.id.bugReport);
+
         FDB = FirebaseDatabase.getInstance();
         DBRef = FDB.getReference().child("info");
 
@@ -66,7 +70,7 @@ public class InfoActivity extends AppCompatActivity {
         textViews.put("email", (TextView) findViewById(R.id.emailText));
         textViews.put("url", (TextView) findViewById(R.id.urlText));
         textViews.put("location", (TextView) findViewById(R.id.locationText));
-        textViews.put("calnourishemail", (TextView) findViewById(R.id.calnourishEmail));
+        textViews.put("calnourishemail", (TextView) findViewById(R.id.calnourishEmailText));
 
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +96,8 @@ public class InfoActivity extends AppCompatActivity {
                         textViews.get("url").setMovementMethod(LinkMovementMethod.getInstance());
                         textViews.get("url").setText(Html.fromHtml(text));
                         textViews.get("location").setText((String) ((Map) infoMap.get("-location")).get("location"));
+                        textViews.get("calnourishemail").setText((String) ((Map) infoMap.get("calnourishcontact")).get("email"));
+
                         //after putting C N email in database, need to get the field "-calnourishemail" from database to set text
 
                         // TODO: should refactor the switch
@@ -169,6 +175,16 @@ public class InfoActivity extends AppCompatActivity {
                         //Log.w(TAG, "Failed to read value.", error.toException());
                     }
                 });
+            }
+        });
+
+        bugReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://goo.gl/forms/mo3vo83oYbRQSrtr1";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 
