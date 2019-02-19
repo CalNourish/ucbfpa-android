@@ -14,6 +14,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,9 +33,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FoodRecoveryActivity extends AppCompatActivity {
 
@@ -43,7 +49,7 @@ public class FoodRecoveryActivity extends AppCompatActivity {
     Calendar dateCalendar;
     DatePickerDialog datePicker;
     TextInputEditText nameView, phoneView, dateView, fromTimeView, toTimeView, locationView, donationView;
-    TextInputLayout locationLayout, donationLayout;
+    TextInputLayout nameLayout, phoneLayout, dateLayout, fromLayout, toLayout, locationLayout, donationLayout;
     Button submitButton, cancelButton;
     ImageButton infoButton;
 
@@ -107,11 +113,42 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         toTimeView = findViewById(R.id.timeEnd);
         donationView = findViewById(R.id.donation);
 
+
+        nameLayout = findViewById(R.id.nameLayout);
+        phoneLayout = findViewById(R.id.phoneLayout);
+        dateLayout = findViewById(R.id.dateLayout);
+        fromLayout = findViewById(R.id.timeStartLayout);
+        toLayout = findViewById(R.id.timeEndLayout);
         locationLayout = findViewById(R.id.locationLayout);
         donationLayout = findViewById(R.id.donationLayout);
 
+
+
         submitButton = findViewById(R.id.submit);
         infoButton = findViewById(R.id.infoButton);
+
+
+        nameLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    nameLayout.setError(null);
+                }
+            }
+        });
+
+        phoneLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View b, boolean hasFocus) {
+                if (hasFocus) {
+                    phoneLayout.setError(null);
+                }
+            }
+        });
+
+
+
+
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             String infoContent = "Use this form to notify UC Berkeley Food Pantry volunteers of possible food donations";
@@ -126,6 +163,20 @@ public class FoodRecoveryActivity extends AppCompatActivity {
             }
         });
 
+        nameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameLayout.setError(null);
+            }
+        });
+
+        phoneView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phoneLayout.setError(null);
+            }
+        });
+
         locationView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -137,10 +188,10 @@ public class FoodRecoveryActivity extends AppCompatActivity {
             }
         });
 
-//        TODO: Make sure the date is valid
         dateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dateLayout.setError(null);
                 dateCalendar = Calendar.getInstance();
                 int day = dateCalendar.get(Calendar.DAY_OF_MONTH);
                 int month = dateCalendar.get(Calendar.MONTH);
@@ -148,22 +199,25 @@ public class FoodRecoveryActivity extends AppCompatActivity {
 
                 // Requires API 24 but the apps min is 23 -- will break if 23 or lower... may need to find alternative...
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
                     datePicker = new DatePickerDialog(FoodRecoveryActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker datePickerView, int setYear, int setMonth, int setDay) {
                             dateView.setText((setMonth + 1) + "/" + setDay + "/" + setYear);
                         }
                     }, year, month, day);
+
+                    datePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                     datePicker.show();
                 }
             }
         });
 
 
-//        TODO: Make sure the time range is valid
         fromTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fromLayout.setError(null);
                 Calendar now = Calendar.getInstance();
                 int hour = now.get(Calendar.HOUR_OF_DAY);
                 int minute = now.get(Calendar.MINUTE);
@@ -181,6 +235,7 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         toTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toLayout.setError(null);
                 Calendar now = Calendar.getInstance();
                 int hour = now.get(Calendar.HOUR_OF_DAY);
                 int minute = now.get(Calendar.MINUTE);
@@ -220,40 +275,116 @@ public class FoodRecoveryActivity extends AppCompatActivity {
                 pickUpEndTime = toTimeView.getText().toString();
                 donation = donationView.getText().toString();
 
+                boolean validForm = true;
 
-                DBRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        HashMap<String, String> foodRecoveryMap = new HashMap<>();
-                        foodRecoveryMap.put("name", name);
-                        foodRecoveryMap.put("phone", phone);
-                        foodRecoveryMap.put("location", location);
-                        foodRecoveryMap.put("pickUpDate", pickUpDate);
-                        foodRecoveryMap.put("pickUpFrom", pickUpStartTime);
-                        foodRecoveryMap.put("pickUpUntil", pickUpEndTime);
-                        foodRecoveryMap.put("donation", donation);
-                        if(count == 0){
-                            DBRef.push().setValue((Map) foodRecoveryMap);
-                            count++;
+
+                if (isValidName(name) > 0) {
+                    nameLayout.setError("Name cannot be empty. Please enter name of donor");
+                    validForm = false;
+                }
+
+                switch(isValidPhone(phone)) {
+                    case 1:
+                        phoneLayout.setError("Phone number cannot be empty");
+                        validForm = false;
+                        break;
+                    case 2:
+                        phoneLayout.setError("Please include your area code");
+                        phoneView.getText().clear();
+                        validForm = false;
+                        break;
+                    case 3:
+                        phoneLayout.setError("Please enter a valid phone number");
+                        phoneView.getText().clear();
+                        validForm = false;
+                        break;
+                }
+
+                switch(isValidTime(pickUpDate, pickUpStartTime, pickUpEndTime)) {
+                    case 1:
+                        toLayout.setError("Please enter the latest possible pick up time");
+                        validForm = false;
+                        break;
+                    case 2:
+                        fromLayout.setError("Please enter the earliest possible pick up time");
+                        validForm = false;
+                        break;
+                    case 3:
+                        toLayout.setError("Please enter the latest possible pick up time");
+                        fromLayout.setError("Please enter the earliest possible pick up time");
+                        validForm = false;
+                        break;
+                    case 4:
+                        fromLayout.setError("The selected time has already passed");
+                        validForm = false;
+                        break;
+                    case 5:
+                        toLayout.setError("The selected latest pick up time is before the earliest selected time");
+                        fromLayout.setError("Please check the from and to fields");
+                        validForm = false;
+                        break;
+
+                }
+
+
+
+                    if (isValidDate(pickUpDate) > 0) {
+                    dateLayout.setError("Date cannot be empty");
+                    validForm = false;
+                }
+
+
+                if (isValidLocation(location) > 0) {
+                    locationLayout.setError("Location cannot be empty. Please enter location for pick up");
+                    validForm = false;
+                }
+
+                if (isValidDonation(donation) > 0) {
+                    donationLayout.setError("Donation cannot be empty. Please include a short description");
+                    validForm = false;
+                }
+
+
+
+                if (validForm) {
+                    DBRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            HashMap<String, String> foodRecoveryMap = new HashMap<>();
+                            foodRecoveryMap.put("name", name);
+                            foodRecoveryMap.put("phone", phone);
+                            foodRecoveryMap.put("location", location);
+                            foodRecoveryMap.put("pickUpDate", pickUpDate);
+                            foodRecoveryMap.put("pickUpFrom", pickUpStartTime);
+                            foodRecoveryMap.put("pickUpUntil", pickUpEndTime);
+                            foodRecoveryMap.put("donation", donation);
+                            if(count == 0){
+                                DBRef.push().setValue((Map) foodRecoveryMap);
+                                count++;
+                            }
                         }
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            //Log.w(TAG, "Failed to read value.", error.toException());
+                        }
+                    });
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        //Log.w(TAG, "Failed to read value.", error.toException());
-                    }
-                });
 
-                nameView.getText().clear();
-                phoneView.getText().clear();
-                locationView.getText().clear();
-                dateView.getText().clear();
-                fromTimeView.getText().clear();
-                toTimeView.getText().clear();
-                donationView.getText().clear();
+                    nameView.getText().clear();
+                    phoneView.getText().clear();
+                    locationView.getText().clear();
+                    dateView.getText().clear();
+                    fromTimeView.getText().clear();
+                    toTimeView.getText().clear();
+                    donationView.getText().clear();
 
-                Toast.makeText(FoodRecoveryActivity.this, "Thanks for your submission, a pantry volunteer will contact you",
+                    Toast.makeText(FoodRecoveryActivity.this, "Thanks for your submission, a pantry volunteer will contact you",
+                            Toast.LENGTH_LONG).show();
+                }
+
+                Toast.makeText(FoodRecoveryActivity.this, "Please complete the form",
                         Toast.LENGTH_LONG).show();
+
             }
         });
 
@@ -289,10 +420,142 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         return hour + ":" + minute + " " + timePeriod;
     }
 
+    /**
+     * FORM VALIDATION
+     */
+
+    public boolean isEmpty(String text) {
+        return TextUtils.isEmpty(text);
+    }
+
+    /**
+     *
+     * @param name
+     * @return the error validation type
+     * 0: no error
+     * 1: empty name
+     */
+    public int isValidName(String name) {
+        if (isEmpty(name)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param phone
+     * @return the error validation type
+     * 0: no error
+     * 1: empty phone number
+     * 2: No area code
+     * 2: invalid characters
+     */
+    public int isValidPhone(String phone) {
+        String validPhoneCharacters = "^[+]?[0-9]{10,13}$";
+        Pattern pattern = Pattern.compile(validPhoneCharacters);
+        Matcher match = pattern.matcher(phone);
+        if (isEmpty(phone)) {
+            return 1;
+        } else if (phone.length() < 10) {
+            return 2;
+        } else if (!match.matches()) {
+            return 3;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     *
+     * @param location
+     * @return the error validation type
+     * 0: no error
+     * 1: empty location
+     */
+    public int isValidLocation(String location) {
+        if (isEmpty(location)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param date
+     * @return the error validation
+     * 0: no error
+     * 1: empty date
+     */
+    public int isValidDate(String date) {
+
+        if (isEmpty(date)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     *
+     * @param date
+     * @param start
+     * @param end
+     * @return the error validation
+     * 0: no error
+     * 1: empty end
+     * 2: empty start
+     * 3: empty end and empty start
+     * 4: start time has already passed
+     * 5: end if before the start
+     */
+    public int isValidTime(String date, String start, String end) {
+        int empty = isEmpty(start) && isEmpty(end) ? 3 : isEmpty(start) ? 2 : isEmpty(end) ? 1 : 0;
+        if (empty > 0) {
+            return empty;
+        }
+        Calendar now = Calendar.getInstance();
+        Calendar instance = Calendar.getInstance();
+        Date startParsed = null;
+        Date endParsed = null;
+        Date dateParsed = null;
+        String timeString = null;
+        Date timeNow = null;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+        try {
+            startParsed = timeFormat.parse(start);
+            endParsed = timeFormat.parse(end);
+            dateParsed = dateFormat.parse(date);
+            timeString = timeFormat.format(instance.getTime());
+            timeNow = timeFormat.parse(timeString);
+            instance.setTime(dateParsed);
+
+        } catch (ParseException e) {
+        }
+        if (now.get(Calendar.DATE) == instance.get(Calendar.DATE) && startParsed.before(timeNow)) {
+            return 4;
+        }
+        if (!endParsed.after(startParsed)) {
+            return 5;
+        }
 
 
+        return 0;
+    }
 
-
+    /**
+     *
+     * @param donation
+     * @return the error validation type
+     * 0: no error
+     * 1: empty donation
+     */
+    public int isValidDonation(String donation) {
+        if (isEmpty(donation)) {
+            return 1;
+        }
+        return 0;
+    }
 
 
 
