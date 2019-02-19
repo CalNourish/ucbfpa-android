@@ -113,6 +113,7 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         toTimeView = findViewById(R.id.timeEnd);
         donationView = findViewById(R.id.donation);
 
+
         nameLayout = findViewById(R.id.nameLayout);
         phoneLayout = findViewById(R.id.phoneLayout);
         dateLayout = findViewById(R.id.dateLayout);
@@ -121,8 +122,33 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         locationLayout = findViewById(R.id.locationLayout);
         donationLayout = findViewById(R.id.donationLayout);
 
+
+
         submitButton = findViewById(R.id.submit);
         infoButton = findViewById(R.id.infoButton);
+
+
+        nameLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    nameLayout.setError(null);
+                }
+            }
+        });
+
+        phoneLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View b, boolean hasFocus) {
+                if (hasFocus) {
+                    phoneLayout.setError(null);
+                }
+            }
+        });
+
+
+
+
 
         infoButton.setOnClickListener(new View.OnClickListener() {
             String infoContent = "Use this form to notify UC Berkeley Food Pantry volunteers of possible food donations";
@@ -137,6 +163,20 @@ public class FoodRecoveryActivity extends AppCompatActivity {
             }
         });
 
+        nameView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nameLayout.setError(null);
+            }
+        });
+
+        phoneView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                phoneLayout.setError(null);
+            }
+        });
+
         locationView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -148,10 +188,10 @@ public class FoodRecoveryActivity extends AppCompatActivity {
             }
         });
 
-//        TODO: Make sure the date is valid
         dateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dateLayout.setError(null);
                 dateCalendar = Calendar.getInstance();
                 int day = dateCalendar.get(Calendar.DAY_OF_MONTH);
                 int month = dateCalendar.get(Calendar.MONTH);
@@ -174,10 +214,10 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         });
 
 
-//        TODO: Make sure the time range is valid
         fromTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fromLayout.setError(null);
                 Calendar now = Calendar.getInstance();
                 int hour = now.get(Calendar.HOUR_OF_DAY);
                 int minute = now.get(Calendar.MINUTE);
@@ -195,6 +235,7 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         toTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toLayout.setError(null);
                 Calendar now = Calendar.getInstance();
                 int hour = now.get(Calendar.HOUR_OF_DAY);
                 int minute = now.get(Calendar.MINUTE);
@@ -274,14 +315,15 @@ public class FoodRecoveryActivity extends AppCompatActivity {
                         validForm = false;
                         break;
                     case 4:
-                        toLayout.setError("The latest pick up time is before the earliest");
-                        fromLayout.setError("Please double check the times");
+                        fromLayout.setError("The selected time has already passed");
                         validForm = false;
                         break;
                     case 5:
-                        toLayout.setError("DATE WORKS");
+                        toLayout.setError("The selected latest pick up time is before the earliest selected time");
+                        fromLayout.setError("Please check the from and to fields");
                         validForm = false;
                         break;
+
                 }
 
 
@@ -463,32 +505,41 @@ public class FoodRecoveryActivity extends AppCompatActivity {
      * 1: empty end
      * 2: empty start
      * 3: empty end and empty start
-     * 4: the end is before the start
+     * 4: start time has already passed
+     * 5: end if before the start
      */
     public int isValidTime(String date, String start, String end) {
         int empty = isEmpty(start) && isEmpty(end) ? 3 : isEmpty(start) ? 2 : isEmpty(end) ? 1 : 0;
         if (empty > 0) {
             return empty;
         }
+        Calendar now = Calendar.getInstance();
+        Calendar instance = Calendar.getInstance();
         Date startParsed = null;
         Date endParsed = null;
         Date dateParsed = null;
+        String timeString = null;
+        Date timeNow = null;
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
         try {
             startParsed = timeFormat.parse(start);
             endParsed = timeFormat.parse(end);
             dateParsed = dateFormat.parse(date);
+            timeString = timeFormat.format(instance.getTime());
+            timeNow = timeFormat.parse(timeString);
+            instance.setTime(dateParsed);
 
         } catch (ParseException e) {
         }
-        if (!endParsed.after(startParsed)) {
+        if (now.get(Calendar.DATE) == instance.get(Calendar.DATE) && startParsed.before(timeNow)) {
             return 4;
         }
-
-        if (new Date().equals(dateParsed)) {
+        if (!endParsed.after(startParsed)) {
             return 5;
         }
+
+
         return 0;
     }
 
