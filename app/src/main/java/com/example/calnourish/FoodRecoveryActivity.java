@@ -14,7 +14,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -128,24 +130,6 @@ public class FoodRecoveryActivity extends AppCompatActivity {
         infoButton = findViewById(R.id.infoButton);
 
 
-        nameLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    nameLayout.setError(null);
-                }
-            }
-        });
-
-        phoneLayout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View b, boolean hasFocus) {
-                if (hasFocus) {
-                    phoneLayout.setError(null);
-                }
-            }
-        });
-
 
 
 
@@ -163,19 +147,44 @@ public class FoodRecoveryActivity extends AppCompatActivity {
             }
         });
 
-        nameView.setOnClickListener(new View.OnClickListener() {
+
+        nameView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                nameLayout.setError(null);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    nameLayout.setError(null);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
-        phoneView.setOnClickListener(new View.OnClickListener() {
+        phoneView.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                phoneLayout.setError(null);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    phoneLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
+
+
 
         locationView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
