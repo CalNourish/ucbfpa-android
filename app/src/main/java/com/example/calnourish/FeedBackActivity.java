@@ -3,9 +3,14 @@ package com.example.calnourish;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +37,8 @@ public class FeedBackActivity extends AppCompatActivity {
     private HashMap<String, String> tempMap = new HashMap<>();
     private int count;
 
+    private long lastFeedbackSubmission = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,50 +52,90 @@ public class FeedBackActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
         final EditText feed = (EditText) findViewById(R.id.feedback);
+        final TextInputLayout feedbackLayout = findViewById(R.id.feedbackLayout);
 //        feedStr = feed.getText().toString();
         final Button submitButton = (Button) findViewById(R.id.sendbutton);
 
         FDB = FirebaseDatabase.getInstance();
         DBRef = FDB.getReference().child("feedback");
 
+        feed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    feedbackLayout.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                count = 0;
-                feedStr = feed.getText().toString();
-                DBRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        HashMap<String, HashMap<String, String>> feedMap = (HashMap)dataSnapshot.getValue();
-                        HashMap<String, String> val = new HashMap<>();
-                        HashMap<String, String> randMap = new HashMap<>();
-                        val.put("feedbackID", temp);
-                        val.put("feedbackText", feedStr);
-                        val.put("feedbackType", temp);
-                        val.put("time", temp);
-                        feedMap.put("uniqueId", val);
+                // Prevent spamming feedback, threshold 3 sec
+                if (SystemClock.elapsedRealtime() - lastFeedbackSubmission < 3000) {
+                    // Say there is an error
+                    Toast.makeText(FeedBackActivity.this, "Error. Please try again in a few seconds",
+                            Toast.LENGTH_LONG).show();
+                    feedbackLayout.setError("Error. Please try again soon");
+
+                } else {
+                    feedStr = feed.getText().toString();
+
+                    if (feedStr.length() == 0) {
+                        feedbackLayout.setError("Feedback cannot be empty");
+
+                    } else{
+                        lastFeedbackSubmission = SystemClock.elapsedRealtime();
+
+                        count = 0;
+                        DBRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                HashMap<String, HashMap<String, String>> feedMap = (HashMap)dataSnapshot.getValue();
+                                HashMap<String, String> val = new HashMap<>();
+                                HashMap<String, String> randMap = new HashMap<>();
+                                val.put("feedbackID", temp);
+                                val.put("feedbackText", feedStr);
+                                val.put("feedbackType", temp);
+                                val.put("time", temp);
+                                feedMap.put("uniqueId", val);
 //                        for(Map.Entry<String, HashMap<String, String>> entry : feedMap.entrySet()) {
 //                            String key = entry.getKey();
 //                            val = entry.getValue();
 //                        }
 //                        val.put("count", "700000000");
 //                        DBRef.push().setValue((Map) val);
-                        if(count == 0){
-                            DBRef.push().setValue((Map) val);
-                            count++;
-                        }
-                    }
+                                if(count == 0){
+                                    DBRef.push().setValue((Map) val);
+                                    count++;
+                                }
+                            }
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        //Log.w(TAG, "Failed to read value.", error.toException());
+                            @Override
+                            public void onCancelled(DatabaseError error) {
+                                //Log.w(TAG, "Failed to read value.", error.toException());
+                            }
+                        });
+                        DBRef.push().setValue((Map) tempMap);
+                        feed.getText().clear();
+                        Toast.makeText(FeedBackActivity.this, "Thanks for the feedback!",
+                                Toast.LENGTH_LONG).show();
+                        feedbackLayout.setError(null);
                     }
-                });
-                DBRef.push().setValue((Map) tempMap);
-                feed.getText().clear();
-                Toast.makeText(FeedBackActivity.this, "Submission Complete",
-                        Toast.LENGTH_LONG).show();
+                }
+
             }
+
         });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
