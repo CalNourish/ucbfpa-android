@@ -63,10 +63,10 @@ public class SearchActivity extends AppCompatActivity {
         //MenuItem menuItem = menu.getItem(2);
         //menuItem.setChecked(true);
 
-        /*SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem search = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) search.getActionView();*/
-        //searchView.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//        MenuItem search = menu.findItem(R.id.search);
+//        searchView = (SearchView) search.getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         final Button updateButton = (Button) findViewById(R.id.updateButton);
 
@@ -147,6 +147,8 @@ public class SearchActivity extends AppCompatActivity {
 
         //searchView.onActionViewExpanded();
 
+
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
@@ -187,11 +189,15 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
     }
+
+
+
 }
 
 
