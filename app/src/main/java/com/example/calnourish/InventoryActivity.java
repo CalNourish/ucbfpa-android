@@ -50,6 +50,7 @@ public class InventoryActivity extends AppCompatActivity {
     private TextView message;
     private ItemAdapter adapter;
     private ArrayList<Item> items;
+    private Button searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +65,7 @@ public class InventoryActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         categoryName = intent.getStringExtra("category");
         itemName = intent.getStringExtra("itemName");
         final TextView textView = (TextView) findViewById(R.id.Category);
@@ -130,6 +131,16 @@ public class InventoryActivity extends AppCompatActivity {
                         //Log.w(TAG, "Failed to read value.", error.toException());
                     }
                 });
+
+            }
+        });
+
+        searchBar = findViewById(R.id.search_bar);
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchIntent = new Intent(InventoryActivity.this, SearchActivity.class);
+                startActivity(searchIntent);
             }
         });
 

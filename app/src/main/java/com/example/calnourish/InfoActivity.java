@@ -98,8 +98,6 @@ public class InfoActivity extends AppCompatActivity {
                         textViews.get("location").setText((String) ((Map) infoMap.get("-location")).get("location"));
                         textViews.get("calnourishemail").setText((String) ((Map) infoMap.get("calnourishcontact")).get("email"));
 
-                        //after putting C N email in database, need to get the field "-calnourishemail" from database to set text
-
                         // TODO: should refactor the switch
                         Calendar calendar = Calendar.getInstance();
                         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("HH:mm");

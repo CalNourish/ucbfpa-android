@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true">
 
-                <SearchView
+                <Button
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -30,10 +30,11 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:clickable="true"
-                    android:iconifiedByDefault="false"
                     android:background="@color/calNourishLightGray"
-                    android:queryBackground="@android:color/transparent" />
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_baseline_search_24px"
+                    android:drawableTint="@color/calNourishText"
+                    android:paddingLeft="16dp" />
 
 
             </RelativeLayout>
@@ -59,6 +60,7 @@
                     android:text="TextView"
                     android:textColor="@color/calNourishText"
                     android:textSize="18sp" />
+
             </RelativeLayout>
 
             <ScrollView
