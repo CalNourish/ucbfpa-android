@@ -194,6 +194,17 @@ public class InventoryActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(InventoryActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new ItemAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Item item = items.get(position);
+                Intent intent = new Intent(InventoryActivity.this, IndividualItemActivity.class);
+                intent.putExtra("item_name", item.getItemName());
+                intent.putExtra("item_image", item.getItemImage());
+                intent.putExtra("item_count", item.getItemCount());
+                startActivity(intent);
+            }
+        });
     }
 
     public ArrayList<Item> getItems() {
