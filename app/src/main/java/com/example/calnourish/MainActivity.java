@@ -1,5 +1,8 @@
 package com.example.calnourish;
 
+import com.testfairy.TestFairy;
+
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TestFairy
+        TestFairy.begin(this, "SDK-CMyheLcb");
+
         overridePendingTransition(R.anim.fadein, R.anim.fadeout);
         setContentView(R.layout.activity_main);
         getWindow().setStatusBarColor(Color.WHITE);

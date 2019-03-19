@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Controls how each CATEGORY card gets shown/displayed in the Categories view.
  */
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class  CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     private ArrayList<Category> categories;
     private Context context;
