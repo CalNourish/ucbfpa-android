@@ -215,12 +215,12 @@ public class InventoryActivity extends AppCompatActivity {
             for(Map.Entry<String, Object> entry1 : val.entrySet()) {
                 if (val.get("itemName").equals(itemName)) {
                     item.add(new Item((String) val.get("itemName"), (String) val.get("cost"),
-                            (String) val.get("count"), (String) val.get("imageUrl")));
+                            (String) val.get("count"), (String) val.get("imageName")));
                     break;
                 }
                 if (((HashMap) val.get("categoryName")).containsValue(categoryName)) {
                     item.add(new Item((String) val.get("itemName"), (String) val.get("cost"),
-                            (String) val.get("count"), (String) val.get("imageUrl")));
+                            (String) val.get("count"), (String) val.get("imageName")));
                     break;
                 }
             }
