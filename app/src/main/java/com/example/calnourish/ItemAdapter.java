@@ -1,29 +1,18 @@
 package com.example.calnourish;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.core.content.ContextCompat;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Space;
 import android.widget.TextView;
 
-import com.example.calnourish.Category;
-import com.example.calnourish.CategoryAdapter;
-import com.example.calnourish.Item;
-import com.example.calnourish.ItemAdapter;
-import com.example.calnourish.InventoryActivity;
-import com.example.calnourish.R;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
