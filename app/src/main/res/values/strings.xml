@@ -12,4 +12,5 @@
     <string name="Submit">Submit</string>
     <string name="Cancel">Cancel</string>
     <string name="foodRecovery">Food Recovery</string>
+    <string name="msg_token_fmt" formatted="true">%s1</string>
 </resources>
