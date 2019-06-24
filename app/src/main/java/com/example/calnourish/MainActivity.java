@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -23,6 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
                         // Get new Instance ID token
                         String token = task.getResult().getToken();
+
+                        // Write to firebase database.
+                        FirebaseDatabase firebaseDB = FirebaseDatabase.getInstance();
+                        DatabaseReference tokensTable = firebaseDB.getReference().child("notificationToken");
+                        Map<String, Object> childUpdates = new HashMap<>();
+                        childUpdates.put(token, "");
+                        tokensTable.updateChildren(childUpdates);
 
                         // Log and toast
                         String msg = getString(R.string.msg_token_fmt, token);
