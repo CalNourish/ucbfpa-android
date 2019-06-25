@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Category> getCategories() {
         ArrayList<Category> categories = new ArrayList<>();
 
-        categories.add(new Category("New Items", R.drawable.water));
-        categories.add(new Category("Favorites", R.drawable.favorites));
+//        categories.add(new Category("New Items", R.drawable.water));
+//        categories.add(new Category("Favorites", R.drawable.favorites));
         categories.add(new Category("Prepared Foods", R.drawable.prepared));
         categories.add(new Category("Grains", R.drawable.grains));
         categories.add(new Category("Produce", R.drawable.produce));
