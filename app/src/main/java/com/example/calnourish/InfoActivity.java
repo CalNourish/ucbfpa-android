@@ -58,13 +58,40 @@ public class InfoActivity extends AppCompatActivity {
         FDB = FirebaseDatabase.getInstance();
         DBRef = FDB.getReference().child("info");
 
-        textViews.put("sunday", (TextView) findViewById(R.id.day0_hours));
-        textViews.put("monday", (TextView) findViewById(R.id.day1_hours));
-        textViews.put("tuesday", (TextView) findViewById(R.id.day2_hours));
-        textViews.put("wednesday", (TextView) findViewById(R.id.day3_hours));
-        textViews.put("thursday", (TextView) findViewById(R.id.day4_hours));
-        textViews.put("friday", (TextView) findViewById(R.id.day5_hours));
-        textViews.put("saturday", (TextView) findViewById(R.id.day6_hours));
+        Calendar dayOfWeek = Calendar.getInstance();
+        Map<Integer, String> daysOfTheWeek = new HashMap();
+        daysOfTheWeek.put(0, "Sunday");
+        daysOfTheWeek.put(1, "Monday");
+        daysOfTheWeek.put(2, "Tuesday");
+        daysOfTheWeek.put(3, "Wednesday");
+        daysOfTheWeek.put(4, "Thursday");
+        daysOfTheWeek.put(5, "Friday");
+        daysOfTheWeek.put(6, "Saturday");
+
+        int today = dayOfWeek.get(Calendar.DAY_OF_WEEK);
+        TextView day0 = findViewById(R.id.day0);
+        day0.setText(daysOfTheWeek.get(today - 1 % 7));
+        TextView day1 = findViewById(R.id.day1);
+        day1.setText(daysOfTheWeek.get((today) % 7));
+        TextView day2 = findViewById(R.id.day2);
+        day2.setText(daysOfTheWeek.get((today + 1) % 7));
+        TextView day3 = findViewById(R.id.day3);
+        day3.setText(daysOfTheWeek.get((today + 2) % 7));
+        TextView day4 = findViewById(R.id.day4);
+        day4.setText(daysOfTheWeek.get((today + 3) % 7));
+        TextView day5 = findViewById(R.id.day5);
+        day5.setText(daysOfTheWeek.get((today + 4) % 7));
+        TextView day6 = findViewById(R.id.day6);
+        day6.setText(daysOfTheWeek.get((today + 5) % 7));
+
+        System.out.println(day0.getText().toString());
+        textViews.put(day0.getText().toString(), (TextView) findViewById(R.id.day0_hours));
+        textViews.put(day1.getText().toString(), (TextView) findViewById(R.id.day1_hours));
+        textViews.put(day2.getText().toString(), (TextView) findViewById(R.id.day2_hours));
+        textViews.put(day3.getText().toString(), (TextView) findViewById(R.id.day3_hours));
+        textViews.put(day4.getText().toString(), (TextView) findViewById(R.id.day4_hours));
+        textViews.put(day5.getText().toString(), (TextView) findViewById(R.id.day5_hours));
+        textViews.put(day6.getText().toString(), (TextView) findViewById(R.id.day6_hours));
         textViews.put("email", (TextView) findViewById(R.id.emailText));
         textViews.put("url", (TextView) findViewById(R.id.urlText));
         textViews.put("location", (TextView) findViewById(R.id.locationText));
@@ -78,15 +105,18 @@ public class InfoActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
                         infoMap = (HashMap)dataSnapshot.getValue();
 
-                        textViews.get("sunday").setText((String) ((Map) infoMap.get("-sunday")).get("hours"));
-                        textViews.get("monday").setText((String) ((Map) infoMap.get("-monday")).get("hours"));
-                        textViews.get("tuesday").setText((String) ((Map) infoMap.get("-tuesday")).get("hours"));
-                        textViews.get("wednesday").setText((String) ((Map) infoMap.get("-wednesday")).get("hours"));
-                        textViews.get("thursday").setText((String) ((Map) infoMap.get("-thursday")).get("hours"));
-                        textViews.get("friday").setText((String) ((Map) infoMap.get("-friday")).get("hours"));
-                        textViews.get("saturday").setText((String) ((Map) infoMap.get("-saturday")).get("hours"));
+                        textViews.get("Sunday").setText((String) ((Map) infoMap.get("-sunday")).get("12hours"));
+                        textViews.get("Monday").setText((String) ((Map) infoMap.get("-monday")).get("12hours"));
+                        textViews.get("Tuesday").setText((String) ((Map) infoMap.get("-tuesday")).get("12hours"));
+                        textViews.get("Wednesday").setText((String) ((Map) infoMap.get("-wednesday")).get("12hours"));
+                        textViews.get("Thursday").setText((String) ((Map) infoMap.get("-thursday")).get("12hours"));
+                        textViews.get("Friday").setText((String) ((Map) infoMap.get("-friday")).get("12hours"));
+                        textViews.get("Saturday").setText((String) ((Map) infoMap.get("-saturday")).get("12hours"));
                         textViews.get("email").setText((String) ((Map) infoMap.get("-contact")).get("email"));
                         String url = (String) ((Map) infoMap.get("-contact")).get("url");
                         String text = "<a href='" + url + "'>" + url + "</a>";
@@ -142,10 +172,7 @@ public class InfoActivity extends AppCompatActivity {
                                 open = LocalTime.parse(pantryTime.split(" ")[0], timeFormat);
                                 close = LocalTime.parse(pantryTime.split(" ")[2], timeFormat);
                                 if (close.minusHours(1).isBefore(currentTime) && close.isAfter(currentTime)) {
-                                    openOrClose.setText("closes in " + Duration.between(currentTime, close)
-                                            .abs()
-                                            .toMinutes()
-                                            + " minutes");
+                                    openOrClose.setText("closing soon");
                                     openOrClose.setTextSize(18);
                                     openOrClose.setBackground(getDrawable(R.drawable.pantry_closing_soon));
                                 } else if (currentTime.isAfter(open) && currentTime.isBefore(close)) {
