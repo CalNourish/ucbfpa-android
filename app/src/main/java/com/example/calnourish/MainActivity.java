@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
                         childUpdates.put(token, "");
                         tokensTable.updateChildren(childUpdates);
 
-                        // Log and toast
-                        String msg = getString(R.string.msg_token_fmt, token);
-                        Log.d("", msg);
-                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+//                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d("", msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         categories.add(new Category("Grains", R.drawable.grains));
         categories.add(new Category("Produce", R.drawable.produce));
 
-        categories.add(new Category("Bread", R.drawable.bread));
+        categories.add(new Category("Canned Foods", R.drawable.frozenvegetables));
         categories.add(new Category("Protein", R.drawable.eggs));
         categories.add(new Category("Frozen", R.drawable.frozen));
         categories.add(new Category("Snacks", R.drawable.yogurt));

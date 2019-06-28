@@ -68,6 +68,8 @@ public class InventoryActivity extends AppCompatActivity {
         categoryName = categoryName.toLowerCase();
         if(categoryName.equals("prepared foods")) {
             categoryName = "prepared";
+        } else if (categoryName.equals("canned foods")) {
+            categoryName = "canned";
         }
 
         final Button updateButton = (Button) findViewById(R.id.updateButton);

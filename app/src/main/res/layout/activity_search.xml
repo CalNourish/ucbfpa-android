@@ -35,7 +35,7 @@
 
             <SearchView
                 android:id="@+id/searchView"
-                android:layout_width="403dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="8dp"
