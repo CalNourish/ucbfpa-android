@@ -94,29 +94,7 @@ public class InventoryActivity extends AppCompatActivity {
                             itemToCategory.put(itemName, val);
                             itemNameToimageName.put(itemName, imageName);
                             updateCard();
-                            //categoryToItem.put(val.get("categoryName"), val);
-//                            items = getItems();
-//                            recyclerView = findViewById(R.id.main_recycler);
-//                            adapter = new ItemAdapter(items);
-//                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(InventoryActivity.this);
-//                            recyclerView.setLayoutManager(layoutManager);
-//                            recyclerView.setAdapter(adapter);
                         }
-                        //val.put("count", "700000000");
-                        //DBRef.updateChildren((Map) myText);
-                        //dbResults.setText((String) myText);
-
-//                        for(Map.Entry<String, HashMap<String, String>> entry : itemToCategory.entrySet()) {
-//                            val = entry.getValue();
-//                            String itemName = val.get("itemName");
-//                            items = getItems(itemName, val.get("count"));
-//                            recyclerView = findViewById(R.id.main_recycler);
-//                            adapter = new ItemAdapter(items);
-//                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(InventoryActivity.this);
-//                            recyclerView.setLayoutManager(layoutManager);
-//                            recyclerView.setAdapter(adapter);
-//                        }
-
                     }
 
                     @Override
@@ -173,8 +151,6 @@ public class InventoryActivity extends AppCompatActivity {
                         startActivity(menuIntent);
                         break;
                 }
-
-
                 return false;
             }
         });
@@ -218,9 +194,6 @@ public class InventoryActivity extends AppCompatActivity {
                 }
             }
         }
-//        items.add(new Item("Item Name", categoryName));
-//        items.add(new Item("Item Name", "Item Count"));
-//        items.add(new Item("Item Name", "Item Count"));
         return item;
     }
 
