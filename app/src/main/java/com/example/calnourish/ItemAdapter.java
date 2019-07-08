@@ -105,8 +105,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         ItemViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
             Card = (CardView) itemView.findViewById(R.id.cardView);
-            itemName = (TextView) itemView.findViewById(R.id.itemName);
-            itemPoint = (TextView) itemView.findViewById(R.id.itemPoint);
+            itemName = (TextView) itemView.findViewById(R.id.notification_title);
+            itemPoint = (TextView) itemView.findViewById(R.id.notification_body);
             itemCount = (TextView) itemView.findViewById(R.id.itemCount);
             itemImage = (ImageView) itemView.findViewById(R.id.itemImage);
 
