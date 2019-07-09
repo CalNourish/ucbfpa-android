@@ -80,7 +80,7 @@ public class IndividualItemActivity extends AppCompatActivity {
                         break;
 
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(IndividualItemActivity.this, FoodRecoveryActivity.class);
+                        Intent foodrecoveryIntent = new Intent(IndividualItemActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
 

@@ -238,7 +238,7 @@ public class InfoActivity extends AppCompatActivity {
                         break;
 
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(InfoActivity.this, FoodRecoveryActivity.class);
+                        Intent foodrecoveryIntent = new Intent(InfoActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
 

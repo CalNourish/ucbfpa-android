@@ -142,7 +142,7 @@ public class InventoryActivity extends AppCompatActivity {
                         break;
 
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(InventoryActivity.this, FoodRecoveryActivity.class);
+                        Intent foodrecoveryIntent = new Intent(InventoryActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
 

@@ -135,8 +135,8 @@ public class NotificationListActivity extends AppCompatActivity {
                         break;
 
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(NotificationListActivity.this, FoodRecoveryActivity.class);
-                        startActivity(foodrecoveryIntent);
+                        Intent notificationIntent = new Intent(NotificationListActivity.this, NotificationListActivity.class);
+                        startActivity(notificationIntent);
                         break;
 
                     case R.id.menu:

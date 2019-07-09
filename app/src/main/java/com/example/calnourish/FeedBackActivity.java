@@ -155,7 +155,7 @@ public class FeedBackActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(FeedBackActivity.this, FoodRecoveryActivity.class);
+                        Intent foodrecoveryIntent = new Intent(FeedBackActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
                     case R.id.menu:

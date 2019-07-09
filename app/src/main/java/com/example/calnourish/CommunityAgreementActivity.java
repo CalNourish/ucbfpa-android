@@ -40,7 +40,7 @@ public class CommunityAgreementActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(CommunityAgreementActivity.this, FoodRecoveryActivity.class);
+                        Intent foodrecoveryIntent = new Intent(CommunityAgreementActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
                     case R.id.menu:
