@@ -44,13 +44,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return notifications.size();
     }
 
     class NotificationViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView body;
-        Space spacer;
         View view;
 
         NotificationViewHolder(View itemView, final OnItemClickListener listener) {

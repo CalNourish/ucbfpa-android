@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
                     case R.id.foodrecovery:
-                        Intent foodrecoveryIntent = new Intent(MainActivity.this, FoodRecoveryActivity.class);
+                        Intent foodrecoveryIntent = new Intent(MainActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
                     case R.id.menu:
