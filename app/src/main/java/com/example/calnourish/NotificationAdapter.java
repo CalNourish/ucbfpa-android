@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Space;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,8 +40,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, int position) {
         holder.title.setText(notifications.get(position).getTitle());
         holder.body.setText(notifications.get(position).getBody());
+
         Date timestamp = notifications.get(position).getTimestamp();
-        //handle timestamp
         String parsedTimestamp = parseTimestamp(timestamp);
         holder.timestamp.setText(parsedTimestamp);
     }
@@ -55,10 +52,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
     public String parseTimestamp(Date timestamp) {
-        //parse stamp
-        //subtract today's date
-        //return parsed
-        String parsedTimestamp;
         int diffInMinutes = (int)( (new Date().getTime() - timestamp.getTime())
                 / (1000 * 60) );
         int diffInHours = (int)( (new Date().getTime() - timestamp.getTime())
@@ -69,11 +62,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 / (1000 * 60 * 60 * 24 * 7) );
 
         if (diffInHours < 1) {
-            //handle in minutes
             return (diffInMinutes == 1) ? diffInMinutes + " minute ago" : diffInMinutes + " minutes ago";
         } else if (diffInDays < 1) {
-            //handle in hours
-//            return (diffInHours == 1) ? diffInHours + " hour ago" : diffInHours + " hours ago";
             return "Today at " + timestamp.getHours() + ":" + timestamp.getMinutes();
         } else if (diffInDays < 2){
             return "Yesterday at " + timestamp.getHours() + ":" + timestamp.getMinutes();

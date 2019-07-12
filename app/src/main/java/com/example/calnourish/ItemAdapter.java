@@ -73,7 +73,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         if (items.get(position).getItemImage() != null) {
             Picasso.get()
-                    .load(R.drawable.app_logo)
+                    .load(R.drawable.blue_app_logo)
 //                    .load(items.get(position).getItemImage())
                     .error(placeholderImageId)
                     .placeholder(placeholderImageId)

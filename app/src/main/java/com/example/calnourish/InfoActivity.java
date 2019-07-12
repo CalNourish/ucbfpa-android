@@ -95,6 +95,7 @@ public class InfoActivity extends AppCompatActivity {
         textViews.put("url", (TextView) findViewById(R.id.urlText));
         textViews.put("location", (TextView) findViewById(R.id.locationText));
         textViews.put("calnourishemail", (TextView) findViewById(R.id.calnourishEmailText));
+        textViews.put("phone", (TextView) findViewById(R.id.phoneText));
 
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +125,8 @@ public class InfoActivity extends AppCompatActivity {
                         textViews.get("url").setText(Html.fromHtml(text));
                         textViews.get("location").setText((String) ((Map) infoMap.get("-location")).get("location"));
                         textViews.get("calnourishemail").setText((String) ((Map) infoMap.get("calnourishcontact")).get("email"));
+                        textViews.get("phone").setText((String) ((Map) infoMap.get("calnourishcontact")).get("phone"));
+
 
                         // TODO: should refactor the switch
                         Calendar calendar = Calendar.getInstance();

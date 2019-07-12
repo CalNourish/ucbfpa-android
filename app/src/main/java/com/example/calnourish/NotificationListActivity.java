@@ -30,16 +30,7 @@ import java.util.HashMap;
 public class NotificationListActivity extends AppCompatActivity {
     private FirebaseDatabase FDB;
     private DatabaseReference DBRef;
-    private HashMap<String, Object> inventoryMap = new HashMap<>();
-    private HashMap<String, Object> itemToCategory = new HashMap<>();
-    private HashMap<String, HashMap<String, String>> categoryToItem = new HashMap<>();
-    private HashMap<String, String> itemNameToimageName = new HashMap<>();
-
-    private String categoryName = "";
-    private String itemName = "";
-
     private RecyclerView recyclerView;
-    private TextView message;
     private NotificationAdapter adapter;
     private ArrayList<Notification> notifications;
     private Button searchBar;
@@ -68,9 +59,6 @@ public class NotificationListActivity extends AppCompatActivity {
                 DBRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        inventoryMap = (HashMap)dataSnapshot.getValue();
-                        HashMap<String, Object> val = new HashMap<>();
-                        int counter = 0;
                         notifications = new ArrayList<>();
 
                         for (DataSnapshot notif : dataSnapshot.getChildren()) {
@@ -86,16 +74,6 @@ public class NotificationListActivity extends AppCompatActivity {
                         });
                         notifications = new ArrayList<>(notifications.subList(0,20));
                         updateCard();
-//                        for(Map.Entry<String, Object> entry : inventoryMap.entrySet()) {
-////                            //String key = entry.getKey();
-////                            val = (HashMap<String, Object>) entry.getValue();
-////                            //dbResults.setText(texthold);
-////                            String itemName = (String) val.get("itemName");
-////                            String imageName = (String) val.get("imageName");
-////                            itemToCategory.put(itemName, val);
-////                            itemNameToimageName.put(itemName, imageName);
-////                            updateCard();
-////                        }
                     }
 
                     @Override
@@ -159,12 +137,12 @@ public class NotificationListActivity extends AppCompatActivity {
     }
 
     public void updateCard() {
-//        notifications = getNotifications();
         recyclerView = findViewById(R.id.main_recycler);
         adapter = new NotificationAdapter(notifications);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(NotificationListActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
 //        adapter.setOnItemClickListener(new ItemAdapter.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(int position) {
@@ -177,27 +155,6 @@ public class NotificationListActivity extends AppCompatActivity {
 //            }
 //        });
     }
-//
-//    public ArrayList<Item> getNotifications() {
-//        ArrayList<Notification> item = new ArrayList<>();
-//        HashMap<String, Object> val = new HashMap<>();
-//        for(Map.Entry<String, Object> entry : itemToCategory.entrySet()) {
-//            val = (HashMap<String, Object>)entry.getValue();
-//            for(Map.Entry<String, Object> entry1 : val.entrySet()) {
-//                if (val.get("itemName").equals(itemName)) {
-//                    item.add(new Item((String) val.get("itemName"), (String) val.get("cost"),
-//                            (String) val.get("count"), (String) val.get("imageName")));
-//                    break;
-//                }
-//                if (((HashMap) val.get("categoryName")).containsValue(categoryName)) {
-//                    item.add(new Item((String) val.get("itemName"), (String) val.get("cost"),
-//                            (String) val.get("count"), (String) val.get("imageName")));
-//                    break;
-//                }
-//            }
-//        }
-//        return item;
-//    }
 
     @Override
     public void onBackPressed() {
