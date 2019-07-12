@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -64,7 +66,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         if (diffInHours < 1) {
             return (diffInMinutes == 1) ? diffInMinutes + " minute ago" : diffInMinutes + " minutes ago";
         } else if (diffInDays < 1) {
-            return "Today at " + timestamp.getHours() + ":" + timestamp.getMinutes();
+            DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
+            String formattedTime = dateFormat.format(timestamp);
+            return "Today at " + formattedTime;
         } else if (diffInDays < 2){
             return "Yesterday at " + timestamp.getHours() + ":" + timestamp.getMinutes();
         } else {
