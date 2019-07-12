@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class NotificationListActivity extends AppCompatActivity {
@@ -74,8 +75,16 @@ public class NotificationListActivity extends AppCompatActivity {
 
                         for (DataSnapshot notif : dataSnapshot.getChildren()) {
                             notifications.add(new Notification(notif.child("title").getValue().toString(),
-                                                                notif.child("text").getValue().toString()));
+                                                                notif.child("text").getValue().toString(),
+                                                                notif.child("timestamp").getValue().toString()));
                         }
+                        notifications.sort(new Comparator<Notification>() {
+                            @Override
+                            public int compare(Notification o1, Notification o2) {
+                                return -o1.getTimestamp().compareTo(o2.getTimestamp());
+                            }
+                        });
+                        notifications = new ArrayList<>(notifications.subList(0,20));
                         updateCard();
 //                        for(Map.Entry<String, Object> entry : inventoryMap.entrySet()) {
 ////                            //String key = entry.getKey();
@@ -134,7 +143,7 @@ public class NotificationListActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
 
-                    case R.id.foodrecovery:
+                    case R.id.notifications:
                         Intent notificationIntent = new Intent(NotificationListActivity.this, NotificationListActivity.class);
                         startActivity(notificationIntent);
                         break;

@@ -84,7 +84,7 @@ public class MenuActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
 
-                    case R.id.foodrecovery:
+                    case R.id.notifications:
                         Intent foodrecoveryIntent = new Intent(MenuActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;

@@ -22,7 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -237,7 +236,7 @@ public class InfoActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
 
-                    case R.id.foodrecovery:
+                    case R.id.notifications:
                         Intent foodrecoveryIntent = new Intent(InfoActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;

@@ -18,7 +18,7 @@
         android:title="Search"
         />
     <item
-        android:id="@+id/foodrecovery"
+        android:id="@+id/notifications"
         android:icon="@drawable/ic_group"
         android:title="Notifications"
         />

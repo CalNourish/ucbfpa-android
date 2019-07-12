@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
     private ArrayList<Notification> notifications;
@@ -40,6 +43,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, int position) {
         holder.title.setText(notifications.get(position).getTitle());
         holder.body.setText(notifications.get(position).getBody());
+        Date timestamp = notifications.get(position).getTimestamp();
+        //handle timestamp
+        String parsedTimestamp = parseTimestamp(timestamp);
+        holder.timestamp.setText(parsedTimestamp);
     }
 
     @Override
@@ -47,9 +54,43 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return notifications.size();
     }
 
+    public String parseTimestamp(Date timestamp) {
+        //parse stamp
+        //subtract today's date
+        //return parsed
+        String parsedTimestamp;
+        int diffInMinutes = (int)( (new Date().getTime() - timestamp.getTime())
+                / (1000 * 60) );
+        int diffInHours = (int)( (new Date().getTime() - timestamp.getTime())
+                / (1000 * 60 * 60) );
+        int diffInDays = (int)( (new Date().getTime() - timestamp.getTime())
+                / (1000 * 60 * 60 * 24) );
+        int diffInWeeks = (int)( (new Date().getTime() - timestamp.getTime())
+                / (1000 * 60 * 60 * 24 * 7) );
+
+        if (diffInHours < 1) {
+            //handle in minutes
+            return (diffInMinutes == 1) ? diffInMinutes + " minute ago" : diffInMinutes + " minutes ago";
+        } else if (diffInDays < 1) {
+            //handle in hours
+//            return (diffInHours == 1) ? diffInHours + " hour ago" : diffInHours + " hours ago";
+            return "Today at " + timestamp.getHours() + ":" + timestamp.getMinutes();
+        } else if (diffInDays < 2){
+            return "Yesterday at " + timestamp.getHours() + ":" + timestamp.getMinutes();
+        } else {
+            //handle actual date
+            List<String> months = Arrays.asList("January", "February", "March",
+                    "April", "May", "June", "July",
+                    "August", "September", "October",
+                    "November", "December");
+            return months.get(timestamp.getMonth()) + " " + timestamp.getDay();
+        }
+    }
+
     class NotificationViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView body;
+        TextView timestamp;
         View view;
 
         NotificationViewHolder(View itemView, final OnItemClickListener listener) {
@@ -57,6 +98,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             view = itemView;
             title = (TextView) itemView.findViewById(R.id.notification_title);
             body = (TextView) itemView.findViewById(R.id.notification_body);
+            timestamp = (TextView) itemView.findViewById((R.id.timestamp));
         }
     }
 }

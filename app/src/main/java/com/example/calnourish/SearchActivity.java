@@ -170,7 +170,7 @@ public class SearchActivity extends AppCompatActivity {
                         startActivity(searchIntent);
                         break;
 
-                    case R.id.foodrecovery:
+                    case R.id.notifications:
                         Intent foodrecoveryIntent = new Intent(SearchActivity.this, NotificationListActivity.class);
                         startActivity(foodrecoveryIntent);
                         break;
