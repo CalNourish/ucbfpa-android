@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         categories = getCategories();
         recyclerView = findViewById(R.id.main_recycler);
         adapter = new CategoryAdapter(categories);
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new GridSpace(2, 50, true));
+        recyclerView.addItemDecoration(new GridSpace(1, 50, true));
         recyclerView.setAdapter(adapter);
 
         FirebaseInstanceId.getInstance().getInstanceId()

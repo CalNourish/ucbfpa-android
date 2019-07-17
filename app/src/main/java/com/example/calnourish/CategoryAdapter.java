@@ -52,6 +52,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                     .placeholder(R.drawable.placeholder0)
                     .into(holder.photo);
         }
+        holder.photo.setColorFilter(R.color.colorWhite);
 
         // TODO (jsluong): fill thi n s with the search for that particular category
         holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.calnourish;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,12 +66,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         if (diffInHours < 1) {
             return (diffInMinutes == 1) ? diffInMinutes + " minute ago" : diffInMinutes + " minutes ago";
-        } else if (diffInDays < 1) {
+        } else if (DateUtils.isToday(timestamp.getTime())) {
             DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
             String formattedTime = dateFormat.format(timestamp);
             return "Today at " + formattedTime;
         } else if (diffInDays < 2){
-            return "Yesterday at " + timestamp.getHours() + ":" + timestamp.getMinutes();
+            DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
+            String formattedTime = dateFormat.format(timestamp);
+            return "Yesterday at " + formattedTime;
         } else {
             //handle actual date
             List<String> months = Arrays.asList("January", "February", "March",

@@ -104,7 +104,7 @@ public class MenuActivity extends AppCompatActivity {
         Button categoryButton = (Button) findViewById(R.id.menu1);
         Button searchButton = (Button) findViewById(R.id.menu2);
         Button feedbackButton = (Button) findViewById(R.id.menu3);
-        Button foodRecoveryButton = (Button) findViewById(R.id.menu4);
+        Button notificationButton = (Button) findViewById(R.id.menu4);
         Button communityGuideButton = (Button) findViewById(R.id.menu5);
 
 
@@ -140,10 +140,10 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        foodRecoveryButton.setOnClickListener(new View.OnClickListener() {
+        notificationButton.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Intent foodRecoveryIntent = new Intent(MenuActivity.this, FoodRecoveryActivity.class);
+              Intent foodRecoveryIntent = new Intent(MenuActivity.this, NotificationListActivity.class);
               startActivity(foodRecoveryIntent);
           }
         });
