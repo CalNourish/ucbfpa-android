@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        categories.add(new Category("New Items", R.drawable.water));
 //        categories.add(new Category("Favorites", R.drawable.favorites));
-        categories.add(new Category("Prepared Foods", R.drawable.prepared));
+//        categories.add(new Category("Prepared Foods", R.drawable.prepared));
         categories.add(new Category("Grains", R.drawable.grains));
-        categories.add(new Category("Produce", R.drawable.produce));
+//        categories.add(new Category("Produce", R.drawable.produce));
 
         categories.add(new Category("Canned Foods", R.drawable.frozenvegetables));
         categories.add(new Category("Protein", R.drawable.eggs));
