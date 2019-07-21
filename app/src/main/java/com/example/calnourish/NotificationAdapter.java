@@ -80,7 +80,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     "April", "May", "June", "July",
                     "August", "September", "October",
                     "November", "December");
-            return months.get(timestamp.getMonth()) + " " + timestamp.getDay();
+            return months.get(timestamp.getMonth()) + " " + timestamp.getDate();
         }
     }
 
