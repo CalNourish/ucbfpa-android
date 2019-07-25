@@ -37,3 +37,7 @@ To see testing updates, visit the [wiki](https://github.com/CalNourish/ucbfpa-an
 		+ has buttons that points to activities (has info category search for now)
 
 
+
+# Deploying
+Deploy from Android Studio to the DeployGate distribution by changing the Run/Debug config dialog on the top toolbar from `ucbfpa-android:app [build]` to
+`ucbfpa-android:app [uploadDeployGateDebug]` and then hit the green build/play button to the right of the dialog box.
