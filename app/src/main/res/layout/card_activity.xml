@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:maxHeight="100dp"
+            android:maxHeight="80dp"
             android:scaleType="centerCrop"
             android:tint="#55000000" />
 
@@ -40,7 +40,7 @@
                     android:text="cardText"
                     android:textAlignment="viewStart"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </FrameLayout>

@@ -71,6 +71,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         String placeholderImage = "placeholder" + Integer.toString(ThreadLocalRandom.current().nextInt(1, 5 + 1));
         int placeholderImageId = context.getResources().getIdentifier(placeholderImage, "drawable", context.getPackageName());
 
+        int imageId = context.getResources().
+                getIdentifier("drawable/" + items.get(position).getItemImage(), null, context.getPackageName());
+
+
         if (items.get(position).getItemImage() != null) {
             Picasso.get()
                     .load(R.drawable.blue_app_logo)
@@ -80,9 +84,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
                     .into(holder.itemImage);
         }
 
-//        int imageId = context.getResources().
-//                getIdentifier("drawable/" + items.get(position).getItemImage(), null, context.getPackageName());
-//
+
 //        // If image doesn't exist
 //        if (imageId == 0) {
 //            holder.itemImage.setBackgroundColor(ContextCompat.getColor(context, R.color.calNourishAccent));
