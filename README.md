@@ -20,13 +20,15 @@ min SDK: 23
 3. When you feel comfortable, create a PR from your branch to master
 
 ## Testing
+**Use the `google-services.json` from TestCalNourish**
+
 To see testing updates, visit the [wiki](https://github.com/CalNourish/ucbfpa-android/wiki)
 
 
 ## Deploying + DeployGate
 
 ### PART 1: The Deployment
-**When deploying, make sure you are using the `google-services.json` from prod**
+**When deploying, make sure you are using the `google-services.json` from ProdCalNourish**
 
 **Option 1:**
 Deploy from Android Studio to the DeployGate distribution by changing the Run/Debug config dialog on the top toolbar from `ucbfpa-android:app [build]` to
