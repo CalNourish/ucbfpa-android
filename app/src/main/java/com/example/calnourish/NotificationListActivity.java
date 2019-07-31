@@ -72,7 +72,9 @@ public class NotificationListActivity extends AppCompatActivity {
                                 return -o1.getTimestamp().compareTo(o2.getTimestamp());
                             }
                         });
-                        notifications = new ArrayList<>(notifications.subList(0,20));
+                        if (notifications.size() > 20) {
+                            notifications = new ArrayList<>(notifications.subList(0,20));
+                        }
                         updateCard();
                     }
 
