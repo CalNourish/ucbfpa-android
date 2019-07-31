@@ -21,7 +21,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/rubikmedium"
-            android:text="Feedback Form"
+            android:text="Mobile App Feedback"
             android:textSize="24sp" />
 
         <LinearLayout
@@ -30,8 +30,16 @@
             android:layout_marginTop="100dp"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/prompt1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="What do you think we can improve upon?" />
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/feedbackLayout"
+                android:id="@+id/feedbackLayout1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,13 +48,64 @@
                 android:layout_marginEnd="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/feedback"
+                    android:id="@+id/feedback1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rubikregular"
-                    android:hint="Tell us how we are doing"
+                    android:hint="Your response here" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/prompt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="Please describe any issues you may have had while using the app." />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/feedbackLayout2"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/feedback2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Your response here" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/prompt3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="Do you have any other feedback for us? " />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/feedbackLayout3"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/feedback3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubikregular"
+                    android:hint="Your response here"
                     android:inputType="textMultiLine"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button

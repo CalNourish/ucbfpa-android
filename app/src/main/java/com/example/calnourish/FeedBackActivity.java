@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +34,10 @@ public class FeedBackActivity extends AppCompatActivity {
     private FirebaseDatabase FDB;
     private DatabaseReference DBRef;
     private String temp = "Testing";
-    private String feedStr = "";
+    private String feedStr1 = "n/a";
+    private String feedStr2 = "n/a";
+    private String feedStr3 = "n/a";
+
     private HashMap<String, String> tempMap = new HashMap<>();
     private int count;
 
@@ -49,15 +55,19 @@ public class FeedBackActivity extends AppCompatActivity {
         MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
 
-        final EditText feed = (EditText) findViewById(R.id.feedback);
-        final TextInputLayout feedbackLayout = findViewById(R.id.feedbackLayout);
-//        feedStr = feed.getText().toString();
+
+        final EditText feed1 = (EditText) findViewById(R.id.feedback1);
+        final TextInputLayout feedbackLayout1 = findViewById(R.id.feedbackLayout1);
+        final EditText feed2 = (EditText) findViewById(R.id.feedback2);
+        final TextInputLayout feedbackLayout2 = findViewById(R.id.feedbackLayout2);
+        final EditText feed3 = (EditText) findViewById(R.id.feedback3);
+        final TextInputLayout feedbackLayout3 = findViewById(R.id.feedbackLayout3);
         final Button submitButton = (Button) findViewById(R.id.sendbutton);
 
         FDB = FirebaseDatabase.getInstance();
         DBRef = FDB.getReference().child("feedback");
 
-        feed.addTextChangedListener(new TextWatcher() {
+        feed1.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -66,7 +76,49 @@ public class FeedBackActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (count > 0) {
-                    feedbackLayout.setError(null);
+                    feedbackLayout1.setError(null);
+                    feedbackLayout2.setError(null);
+                    feedbackLayout3.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        feed2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    feedbackLayout1.setError(null);
+                    feedbackLayout2.setError(null);
+                    feedbackLayout3.setError(null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        feed3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count > 0) {
+                    feedbackLayout1.setError(null);
+                    feedbackLayout2.setError(null);
+                    feedbackLayout3.setError(null);
                 }
             }
 
@@ -84,13 +136,19 @@ public class FeedBackActivity extends AppCompatActivity {
                     // Say there is an error
                     Toast.makeText(FeedBackActivity.this, "Error. Please try again in a few seconds",
                             Toast.LENGTH_LONG).show();
-                    feedbackLayout.setError("Error. Please try again soon");
+                    feedbackLayout3.setError("Error. Please try again soon");
 
                 } else {
-                    feedStr = feed.getText().toString();
+                    feedStr1 = feed1.getText().toString();
+                    feedStr2 = feed2.getText().toString();
+                    feedStr3 = feed3.getText().toString();
 
-                    if (feedStr.length() == 0) {
-                        feedbackLayout.setError("Feedback cannot be empty");
+                    final String timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
+                    if (feedStr1.length() == 0 || feedStr2.length() == 0 || feedStr3.length() == 0) {
+                        feedbackLayout1.setError("Please enter n/a if no comment");
+                        feedbackLayout2.setError("Please enter n/a if no comment");
+                        feedbackLayout3.setError("Please enter n/a if no comment");
 
                     } else{
                         lastFeedbackSubmission = SystemClock.elapsedRealtime();
@@ -102,10 +160,10 @@ public class FeedBackActivity extends AppCompatActivity {
                                 HashMap<String, HashMap<String, String>> feedMap = (HashMap)dataSnapshot.getValue();
                                 HashMap<String, String> val = new HashMap<>();
                                 HashMap<String, String> randMap = new HashMap<>();
-                                val.put("feedbackID", temp);
-                                val.put("feedbackText", feedStr);
-                                val.put("feedbackType", temp);
-                                val.put("time", temp);
+                                val.put("improve upon", feedStr1);
+                                val.put("bugs and crashes", feedStr2);
+                                val.put("other feedback", feedStr3);
+                                val.put("time", timeStamp);
                                 feedMap.put("uniqueId", val);
 //                        for(Map.Entry<String, HashMap<String, String>> entry : feedMap.entrySet()) {
 //                            String key = entry.getKey();
@@ -125,10 +183,12 @@ public class FeedBackActivity extends AppCompatActivity {
                             }
                         });
                         DBRef.push().setValue((Map) tempMap);
-                        feed.getText().clear();
+                        feed1.getText().clear();
+                        feed2.getText().clear();
+                        feed3.getText().clear();
                         Toast.makeText(FeedBackActivity.this, "Thanks for the feedback!",
                                 Toast.LENGTH_LONG).show();
-                        feedbackLayout.setError(null);
+                        feedbackLayout3.setError(null);
                     }
                 }
 
