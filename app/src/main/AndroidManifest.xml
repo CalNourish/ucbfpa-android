@@ -15,14 +15,14 @@
         android:windowSoftInputMode="adjustResize">
         <activity android:name=".NotificationListActivity"></activity>
         <activity android:name=".IndividualItemActivity" />
-        <activity android:name=".SplashAcivity">
+        <activity android:name=".SplashAcivity"/>
+        <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
         <activity android:name=".InfoActivity" />
         <activity
             android:name=".SearchActivity"
